@@ -1,13 +1,17 @@
 <?php
+
 class Book {
+    // Properties
     private $title;
     private $availableCopies;
 
+    // Constructor
     public function __construct($title, $availableCopies) {
         $this->title = $title;
         $this->availableCopies = $availableCopies;
     }
 
+    // Getters
     public function getTitle() {
         return $this->title;
     }
@@ -16,13 +20,13 @@ class Book {
         return $this->availableCopies;
     }
 
+    // Methods
     public function borrowBook() {
         if ($this->availableCopies > 0) {
             $this->availableCopies--;
             return true;
-        } else {
-            return false;
         }
+        return false;
     }
 
     public function returnBook() {
@@ -31,45 +35,45 @@ class Book {
 }
 
 class Member {
+    // Properties
     private $name;
 
+    // Constructor
     public function __construct($name) {
         $this->name = $name;
     }
 
+    // Getters
     public function getName() {
         return $this->name;
     }
 
+    // Methods
     public function borrowBook($book) {
-        if ($book->borrowBook()) {
-            echo "{$this->name} successfully borrowed '{$book->getTitle()}'.\n";
-        } else {
-            echo "No available copies of '{$book->getTitle()}' for {$this->name} to borrow.\n";
-        }
+        $book->borrowBook();
     }
 
     public function returnBook($book) {
         $book->returnBook();
-        echo "{$this->name} successfully returned '{$book->getTitle()}'.\n";
     }
 }
 
 // Usage
 
-// Create 2 books with the following properties
+// Create 2 books
 $book1 = new Book("The Great Gatsby", 5);
 $book2 = new Book("To Kill a Mockingbird", 3);
 
-// Create 2 members with the following properties
+// Create 2 members
 $member1 = new Member("John Doe");
 $member2 = new Member("Jane Smith");
 
-// Apply Borrow book method to each member
-$member1->borrowBook($book1);
-$member2->borrowBook($book2);
+// Members borrow books
+$member1->borrowBook($book1); 
+$member2->borrowBook($book2); 
 
-// Print Available Copies with their names
-echo "Available Copies of '{$book1->getTitle()}': {$book1->getAvailableCopies()}\n";
-echo "Available Copies of '{$book2->getTitle()}': {$book2->getAvailableCopies()}\n";
+// Print available copies
+echo "Available Copies of '" . $book1->getTitle() . "': " . $book1->getAvailableCopies() . "\n";
+echo "Available Copies of '" . $book2->getTitle() . "': " . $book2->getAvailableCopies() . "\n";
+
 ?>
